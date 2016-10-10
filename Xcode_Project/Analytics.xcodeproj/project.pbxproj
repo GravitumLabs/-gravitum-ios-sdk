@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CEB190791D9A7093001795A7 /* AddEventRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190521D9A7093001795A7 /* AddEventRequest.m */; };
+		CEB1907A1D9A7093001795A7 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190541D9A7093001795A7 /* Analytics.m */; };
+		CEB1907D1D9A7093001795A7 /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB1905A1D9A7093001795A7 /* AuthRequest.m */; };
+		CEB1907E1D9A7093001795A7 /* BaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB1905C1D9A7093001795A7 /* BaseRequest.m */; };
+		CEB1907F1D9A7093001795A7 /* Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB1905E1D9A7093001795A7 /* Enums.m */; };
+		CEB190801D9A7093001795A7 /* Error.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190601D9A7093001795A7 /* Error.m */; };
+		CEB190821D9A7093001795A7 /* MonetaryEventRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190641D9A7093001795A7 /* MonetaryEventRequest.m */; };
+		CEB190831D9A7093001795A7 /* RequestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190661D9A7093001795A7 /* RequestResult.m */; };
+		CEB190841D9A7093001795A7 /* ServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190681D9A7093001795A7 /* ServerRequest.m */; };
+		CEB190851D9A7093001795A7 /* ServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB1906A1D9A7093001795A7 /* ServerResponse.m */; };
+		CEB190861D9A7093001795A7 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB1906C1D9A7093001795A7 /* SessionManager.m */; };
+		CEB190871D9A7093001795A7 /* SessionStartRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB1906E1D9A7093001795A7 /* SessionStartRequest.m */; };
+		CEB190881D9A7093001795A7 /* SessionStopRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190701D9A7093001795A7 /* SessionStopRequest.m */; };
+		CEB190891D9A7093001795A7 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190721D9A7093001795A7 /* Settings.m */; };
+		CEB1908C1D9A7093001795A7 /* WebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190781D9A7093001795A7 /* WebServer.m */; };
+		CEB1908F1D9A70B6001795A7 /* Analytics.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190531D9A7093001795A7 /* Analytics.h */; };
+		CEF7F3F71D9A77ED00646EE9 /* AddEventRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190511D9A7093001795A7 /* AddEventRequest.h */; };
+		CEF7F3F81D9A77ED00646EE9 /* AuthRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190591D9A7093001795A7 /* AuthRequest.h */; };
+		CEF7F3F91D9A77ED00646EE9 /* BaseRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB1905B1D9A7093001795A7 /* BaseRequest.h */; };
+		CEF7F3FA1D9A77ED00646EE9 /* Enums.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB1905D1D9A7093001795A7 /* Enums.h */; };
+		CEF7F3FB1D9A77ED00646EE9 /* Error.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB1905F1D9A7093001795A7 /* Error.h */; };
+		CEF7F3FC1D9A77ED00646EE9 /* MonetaryEventRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190631D9A7093001795A7 /* MonetaryEventRequest.h */; };
+		CEF7F3FD1D9A77ED00646EE9 /* RequestResult.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190651D9A7093001795A7 /* RequestResult.h */; };
+		CEF7F3FE1D9A77ED00646EE9 /* ServerRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190671D9A7093001795A7 /* ServerRequest.h */; };
+		CEF7F3FF1D9A77ED00646EE9 /* ServerResponse.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190691D9A7093001795A7 /* ServerResponse.h */; };
+		CEF7F4001D9A77ED00646EE9 /* SessionManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB1906B1D9A7093001795A7 /* SessionManager.h */; };
+		CEF7F4011D9A77ED00646EE9 /* SessionStartRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB1906D1D9A7093001795A7 /* SessionStartRequest.h */; };
+		CEF7F4021D9A77ED00646EE9 /* SessionStopRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB1906F1D9A7093001795A7 /* SessionStopRequest.h */; };
+		CEF7F4031D9A77ED00646EE9 /* Settings.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190711D9A7093001795A7 /* Settings.h */; };
+		CEF7F4051D9A77ED00646EE9 /* WebServer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190771D9A7093001795A7 /* WebServer.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CEB1903D1D9A6A95001795A7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				CEF7F3F71D9A77ED00646EE9 /* AddEventRequest.h in CopyFiles */,
+				CEF7F3F81D9A77ED00646EE9 /* AuthRequest.h in CopyFiles */,
+				CEF7F3F91D9A77ED00646EE9 /* BaseRequest.h in CopyFiles */,
+				CEF7F3FA1D9A77ED00646EE9 /* Enums.h in CopyFiles */,
+				CEF7F3FB1D9A77ED00646EE9 /* Error.h in CopyFiles */,
+				CEF7F3FC1D9A77ED00646EE9 /* MonetaryEventRequest.h in CopyFiles */,
+				CEF7F3FD1D9A77ED00646EE9 /* RequestResult.h in CopyFiles */,
+				CEF7F3FE1D9A77ED00646EE9 /* ServerRequest.h in CopyFiles */,
+				CEF7F3FF1D9A77ED00646EE9 /* ServerResponse.h in CopyFiles */,
+				CEF7F4001D9A77ED00646EE9 /* SessionManager.h in CopyFiles */,
+				CEF7F4011D9A77ED00646EE9 /* SessionStartRequest.h in CopyFiles */,
+				CEF7F4021D9A77ED00646EE9 /* SessionStopRequest.h in CopyFiles */,
+				CEF7F4031D9A77ED00646EE9 /* Settings.h in CopyFiles */,
+				CEF7F4051D9A77ED00646EE9 /* WebServer.h in CopyFiles */,
+				CEB1908F1D9A70B6001795A7 /* Analytics.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CEB1903F1D9A6A95001795A7 /* libAnalytics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAnalytics.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEB190511D9A7093001795A7 /* AddEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventRequest.h; sourceTree = "<group>"; };
+		CEB190521D9A7093001795A7 /* AddEventRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventRequest.m; sourceTree = "<group>"; };
+		CEB190531D9A7093001795A7 /* Analytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
+		CEB190541D9A7093001795A7 /* Analytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
+		CEB190551D9A7093001795A7 /* AnalyticsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalyticsTest.h; sourceTree = "<group>"; };
+		CEB190561D9A7093001795A7 /* AnalyticsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalyticsTest.m; sourceTree = "<group>"; };
+		CEB190591D9A7093001795A7 /* AuthRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthRequest.h; sourceTree = "<group>"; };
+		CEB1905A1D9A7093001795A7 /* AuthRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthRequest.m; sourceTree = "<group>"; };
+		CEB1905B1D9A7093001795A7 /* BaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRequest.h; sourceTree = "<group>"; };
+		CEB1905C1D9A7093001795A7 /* BaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRequest.m; sourceTree = "<group>"; };
+		CEB1905D1D9A7093001795A7 /* Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
+		CEB1905E1D9A7093001795A7 /* Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enums.m; sourceTree = "<group>"; };
+		CEB1905F1D9A7093001795A7 /* Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
+		CEB190601D9A7093001795A7 /* Error.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Error.m; sourceTree = "<group>"; };
+		CEB190611D9A7093001795A7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEB190631D9A7093001795A7 /* MonetaryEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonetaryEventRequest.h; sourceTree = "<group>"; };
+		CEB190641D9A7093001795A7 /* MonetaryEventRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonetaryEventRequest.m; sourceTree = "<group>"; };
+		CEB190651D9A7093001795A7 /* RequestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestResult.h; sourceTree = "<group>"; };
+		CEB190661D9A7093001795A7 /* RequestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestResult.m; sourceTree = "<group>"; };
+		CEB190671D9A7093001795A7 /* ServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRequest.h; sourceTree = "<group>"; };
+		CEB190681D9A7093001795A7 /* ServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRequest.m; sourceTree = "<group>"; };
+		CEB190691D9A7093001795A7 /* ServerResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerResponse.h; sourceTree = "<group>"; };
+		CEB1906A1D9A7093001795A7 /* ServerResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerResponse.m; sourceTree = "<group>"; };
+		CEB1906B1D9A7093001795A7 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
+		CEB1906C1D9A7093001795A7 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
+		CEB1906D1D9A7093001795A7 /* SessionStartRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionStartRequest.h; sourceTree = "<group>"; };
+		CEB1906E1D9A7093001795A7 /* SessionStartRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionStartRequest.m; sourceTree = "<group>"; };
+		CEB1906F1D9A7093001795A7 /* SessionStopRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionStopRequest.h; sourceTree = "<group>"; };
+		CEB190701D9A7093001795A7 /* SessionStopRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionStopRequest.m; sourceTree = "<group>"; };
+		CEB190711D9A7093001795A7 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		CEB190721D9A7093001795A7 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		CEB190771D9A7093001795A7 /* WebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServer.h; sourceTree = "<group>"; };
+		CEB190781D9A7093001795A7 /* WebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CEB1903C1D9A6A95001795A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CEB190361D9A6A95001795A7 = {
+			isa = PBXGroup;
+			children = (
+				CEB190411D9A6A95001795A7 /* Analytics */,
+				CEB190401D9A6A95001795A7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CEB190401D9A6A95001795A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CEB1903F1D9A6A95001795A7 /* libAnalytics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEB190411D9A6A95001795A7 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				CEB190511D9A7093001795A7 /* AddEventRequest.h */,
+				CEB190521D9A7093001795A7 /* AddEventRequest.m */,
+				CEB190531D9A7093001795A7 /* Analytics.h */,
+				CEB190541D9A7093001795A7 /* Analytics.m */,
+				CEB190551D9A7093001795A7 /* AnalyticsTest.h */,
+				CEB190561D9A7093001795A7 /* AnalyticsTest.m */,
+				CEB190591D9A7093001795A7 /* AuthRequest.h */,
+				CEB1905A1D9A7093001795A7 /* AuthRequest.m */,
+				CEB1905B1D9A7093001795A7 /* BaseRequest.h */,
+				CEB1905C1D9A7093001795A7 /* BaseRequest.m */,
+				CEB1905D1D9A7093001795A7 /* Enums.h */,
+				CEB1905E1D9A7093001795A7 /* Enums.m */,
+				CEB1905F1D9A7093001795A7 /* Error.h */,
+				CEB190601D9A7093001795A7 /* Error.m */,
+				CEB190611D9A7093001795A7 /* Info.plist */,
+				CEB190631D9A7093001795A7 /* MonetaryEventRequest.h */,
+				CEB190641D9A7093001795A7 /* MonetaryEventRequest.m */,
+				CEB190651D9A7093001795A7 /* RequestResult.h */,
+				CEB190661D9A7093001795A7 /* RequestResult.m */,
+				CEB190671D9A7093001795A7 /* ServerRequest.h */,
+				CEB190681D9A7093001795A7 /* ServerRequest.m */,
+				CEB190691D9A7093001795A7 /* ServerResponse.h */,
+				CEB1906A1D9A7093001795A7 /* ServerResponse.m */,
+				CEB1906B1D9A7093001795A7 /* SessionManager.h */,
+				CEB1906C1D9A7093001795A7 /* SessionManager.m */,
+				CEB1906D1D9A7093001795A7 /* SessionStartRequest.h */,
+				CEB1906E1D9A7093001795A7 /* SessionStartRequest.m */,
+				CEB1906F1D9A7093001795A7 /* SessionStopRequest.h */,
+				CEB190701D9A7093001795A7 /* SessionStopRequest.m */,
+				CEB190711D9A7093001795A7 /* Settings.h */,
+				CEB190721D9A7093001795A7 /* Settings.m */,
+				CEB190771D9A7093001795A7 /* WebServer.h */,
+				CEB190781D9A7093001795A7 /* WebServer.m */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CEB1903E1D9A6A95001795A7 /* Analytics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEB190481D9A6A95001795A7 /* Build configuration list for PBXNativeTarget "Analytics" */;
+			buildPhases = (
+				CEB1903B1D9A6A95001795A7 /* Sources */,
+				CEB1903C1D9A6A95001795A7 /* Frameworks */,
+				CEB1903D1D9A6A95001795A7 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Analytics;
+			productName = Analytics;
+			productReference = CEB1903F1D9A6A95001795A7 /* libAnalytics.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CEB190371D9A6A95001795A7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				KnownAssetTags = (
+					New,
+				);
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Gravitum;
+				TargetAttributes = {
+					CEB1903E1D9A6A95001795A7 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = CEB1903A1D9A6A95001795A7 /* Build configuration list for PBXProject "Analytics" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CEB190361D9A6A95001795A7;
+			productRefGroup = CEB190401D9A6A95001795A7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CEB1903E1D9A6A95001795A7 /* Analytics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CEB1903B1D9A6A95001795A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEB1907F1D9A7093001795A7 /* Enums.m in Sources */,
+				CEB190881D9A7093001795A7 /* SessionStopRequest.m in Sources */,
+				CEB1908C1D9A7093001795A7 /* WebServer.m in Sources */,
+				CEB190841D9A7093001795A7 /* ServerRequest.m in Sources */,
+				CEB1907A1D9A7093001795A7 /* Analytics.m in Sources */,
+				CEB190831D9A7093001795A7 /* RequestResult.m in Sources */,
+				CEB190821D9A7093001795A7 /* MonetaryEventRequest.m in Sources */,
+				CEB190851D9A7093001795A7 /* ServerResponse.m in Sources */,
+				CEB190791D9A7093001795A7 /* AddEventRequest.m in Sources */,
+				CEB190801D9A7093001795A7 /* Error.m in Sources */,
+				CEB190891D9A7093001795A7 /* Settings.m in Sources */,
+				CEB1907E1D9A7093001795A7 /* BaseRequest.m in Sources */,
+				CEB190871D9A7093001795A7 /* SessionStartRequest.m in Sources */,
+				CEB190861D9A7093001795A7 /* SessionManager.m in Sources */,
+				CEB1907D1D9A7093001795A7 /* AuthRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CEB190461D9A6A95001795A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CEB190471D9A6A95001795A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CEB190491D9A6A95001795A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CEB1904A1D9A6A95001795A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CEB1903A1D9A6A95001795A7 /* Build configuration list for PBXProject "Analytics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB190461D9A6A95001795A7 /* Debug */,
+				CEB190471D9A6A95001795A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEB190481D9A6A95001795A7 /* Build configuration list for PBXNativeTarget "Analytics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB190491D9A6A95001795A7 /* Debug */,
+				CEB1904A1D9A6A95001795A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CEB190371D9A6A95001795A7 /* Project object */;
+}
