@@ -21,7 +21,8 @@
 -(int32_t)CurrentTimeStamp;
 
 -(void)SendDelayedPackages;
-
+-(void)testInternetConnection;
+-(void)testInternetConnection :(BaseRequest *) package;
 -(void)FlushCachedRequests;
 -(void)LoadCachedRequests;
 -(void)SetOfflineMode :(bool)Bool;

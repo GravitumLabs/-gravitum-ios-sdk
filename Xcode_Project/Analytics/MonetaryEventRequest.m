@@ -23,9 +23,25 @@ NSString *const MonPackId = @"AddPurchase";
     [OriginalJSON setValue:[analytics getUserServerId] forKey:@"user"];
     [OriginalJSON setValue: [sm sessionId] forKey:@"session"];
     [OriginalJSON setValue:_productId forKey:@"product_id"];
-    [OriginalJSON setValue: [[NSNumber alloc] initWithDouble:_price]    forKey:@"price"];
-    [OriginalJSON setValue: _currency forKey:@"currency"];
     
+    
+    
+    NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+    
+    NSString * string = [NSString stringWithFormat:@"%0.2f", _price];
+    
+    [formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setGroupingSeparator:@""];
+    [formatter setDecimalSeparator:@"."];
+    [formatter setMinimumFractionDigits:2];
+    [formatter setMaximumFractionDigits:2];
+    NSNumber * newNumber  = [formatter numberFromString:string];
+    
+    
+    [OriginalJSON setValue: newNumber forKey:@"price"];
+    [OriginalJSON setValue: _currency forKey:@"currency"];
+
     //NSLog(@"%@",[NSString stringWithFormat:@"Generating data from MonetaryEventRequest: %@, %@", [sm sessionId], @"session"]);
     return OriginalJSON;
 }
@@ -40,7 +56,22 @@ NSString *const MonPackId = @"AddPurchase";
   
     [dict setValue:request_Id forKey:@"requestId"];
     [dict setValue:_productId forKey:@"productId"];
-    [dict setValue:[NSNumber numberWithDouble:_price] forKey:@"price"];
+    
+    
+    
+    NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+    
+    NSString * string = [NSString stringWithFormat:@"%0.2f", _price];
+    
+    [formatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setGroupingSeparator:@""];
+    [formatter setDecimalSeparator:@"."];
+    [formatter setMinimumFractionDigits:2];
+    [formatter setMaximumFractionDigits:2];
+    NSNumber * newNumber  = [formatter numberFromString:string];
+    
+    [dict setValue: newNumber forKey:@"price"];
     [dict setValue:_currency forKey:@"currency"];
 
     NSString * stringData;

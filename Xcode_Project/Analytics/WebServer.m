@@ -3,8 +3,11 @@
 #import "RequestResult.h"
 #import "AddEventRequest.h"
 #import "MonetaryEventRequest.h"
+#import "Reachability.h"
 
-@interface WebServer(){}
+@interface WebServer(){
+    Reachability *internetReachableFoo;
+}
 
 @end
 
@@ -97,19 +100,90 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
     //NSLog(@"LoadCachedRequests: %@", DelayedPackages);
 }
 
+- (void)testInternetConnection
+{
+    internetReachableFoo = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    // Internet is reachable
+    internetReachableFoo.reachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"There is internet connection, but can't reach server");
+            //_isOfflineMode = NO;
+        });
+    };
+    
+    // Internet is not reachable
+    internetReachableFoo.unreachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"No internet connection!");
+            //_isOfflineMode = YES;
+            
+        });
+    };
+    
+    [internetReachableFoo startNotifier];
+}
+
+- (void)testInternetConnection :(BaseRequest *) package
+{
+    internetReachableFoo = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    // Internet is reachable
+    internetReachableFoo.reachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _isOfflineMode = NO;
+            if([SessionManager getManager].isSessionUndefined && [package AuthenticationRequired]){
+                [DelayedPackages addObject:package];
+                NSLog(@"%@ Cached... (UndefinedSession) DelayedPackages: %@", [package id], DelayedPackages.description);
+            }else {
+                [self SendRequest:package];
+                
+            }
+                
+            
+        });
+    };
+    
+    // Internet is not reachable
+    internetReachableFoo.unreachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"No server connection! Set offline mode");
+            _isOfflineMode = YES;
+            if([package AuthenticationRequired]){
+                [DelayedPackages addObject:package];
+                NSLog(@"%@ Cached... (Can't reach server) DelayedPackages: %@", [package id],DelayedPackages.description);
+             //   [self testInternetConnection];
+            }
+            
+        });
+    };
+    
+    [internetReachableFoo startNotifier];
+}
+
 
 -(void)Send: (BaseRequest *)package{
-    SessionManager * sm = [SessionManager getManager];
-    if(sm.isSessionUndefined || _isOfflineMode){
-        if([package AuthenticationRequired]){
-            [DelayedPackages addObject:package];
-            NSLog(@"%@ Cached... DelayedPackages: %@", [package id], DelayedPackages.description);
-            return;
-        }
-        
-    }
-    NSLog(@"WebServer: SendingRequest PackageId = %@" , [package id]);
-    [self SendRequest:package];
+    //  SessionManager * sm = [SessionManager getManager];
+    
+    [self testInternetConnection:package];
+    
+    //   if(sm.isSessionUndefined || _isOfflineMode){
+    //       if([package AuthenticationRequired]){
+    //           [DelayedPackages addObject:package];
+    //           NSLog(@"%@ Cached... DelayedPackages: %@", [package id], DelayedPackages.description);
+    //          return;
+    //       }
+    //  }
+    //   NSLog(@"WebServer: SendingRequest PackageId = %@" , [package id]);
+    //   [self SendRequest:package];
     
 }
 
@@ -128,7 +202,7 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
 }
 
 -(void)SendDelayedPackages{
-    NSLog(@"WebServer. SendingDeleyedPackages");
+    NSLog(@"WebServer. SendingDelayedPackages");
     for(id object in DelayedPackages){
         NSLog(@"Sending request with object %@", object);
         [self SendRequest:object];
@@ -200,6 +274,9 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
             
         }
     }else{
+        if([[result getBaseRequest] AuthenticationRequired]){
+            [DelayedPackages addObject:[result getBaseRequest]];
+        }
         NSString *resultString = nil;
         if(result != nil){
             RequestStatus s = (RequestStatus)(result.getRequestStatus);

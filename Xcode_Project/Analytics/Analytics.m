@@ -190,15 +190,15 @@
 }
 
 -(void)SendMonetaryEvent :(NSString*)productId price:(double)_price currency:(NSString * )currency{
-    if([[SessionManager getManager] isSessionUndefined] || [[WebServer getWebServer] isOflineMode]){
-        NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:@"Monetary" forKey:@"EventType"];
-        [dict setObject:productId forKey:@"EventProductId"];
-        [dict setObject:[NSNumber numberWithDouble:_price] forKey:@"EventPrice"];
-        [dict setObject:currency forKey:@"currency"];
-        
-        [CacheArray addObject:dict];
-    }
+//    if([[SessionManager getManager] isSessionUndefined] || [[WebServer getWebServer] isOflineMode]){
+//        NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+//        [dict setObject:@"Monetary" forKey:@"EventType"];
+//        [dict setObject:productId forKey:@"EventProductId"];
+//        [dict setObject:[NSNumber numberWithDouble:_price] forKey:@"EventPrice"];
+//        [dict setObject:currency forKey:@"currency"];
+//        
+//        [CacheArray addObject:dict];
+//    }
     
     MonetaryEventRequest * request = [[MonetaryEventRequest alloc] initWithString:productId price:_price currency:currency];
     [request Send];

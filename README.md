@@ -1,5 +1,5 @@
-# gravitum-ios-sdk
+# Gravitum IOS SDK #
 
-Gravitum SDK for IOS development environment
+Gravitum is high volume and reliable analytics system for mobile applications. We support all major native and mobile platforms by providing dedicated SDKs for each platform. And an online dashboard for analytics monitoring and push campaigns flow setup.
 
-Please see the Wiki: https://github.com/GravitumLabs/gravitum-ios-sdk/wiki for documentation and instructions on how to use the SDK for IOS.
+If you have any questions, or you can't find what you're looking for, check out [Getting Started](https://bitbucket.org/autopushteam/gravitum-ios-sdk/wiki/Getting%20Started) guide.
