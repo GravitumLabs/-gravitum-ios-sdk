@@ -102,7 +102,7 @@
                                               if(debuging){
                                                 NSLog(@"ServerRequest. Response text from session: %@",[response description]);
                                               }
-                                              NSLog(@"RequestReply: %@ \n\n",requestReply);
+                                              NSLog(@"RequestReply: %@ \n %@ \n\n",requestReply, package);
                                               
                                               [result setResultData:data];
                                               [result setUrl:response.URL];

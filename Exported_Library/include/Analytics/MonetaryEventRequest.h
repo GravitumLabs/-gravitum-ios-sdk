@@ -13,8 +13,6 @@
 
 -(NSMutableDictionary<NSString *, NSObject *> *)GenerateData;
 
--(bool) AuthenticationRequired;
-
 -(NSString *) GetJsonData;
 
 @end

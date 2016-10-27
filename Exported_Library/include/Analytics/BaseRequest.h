@@ -8,6 +8,8 @@
     NSString * request_Id;
     int32_t  _TimeStamp;
     ServerResponse * _Nullable  Response;
+    bool _cacheable;
+	bool _authRequired;
 }
 
 
@@ -19,6 +21,7 @@
 
 -(ServerResponse * _Nullable)getResponse;
 
+-(bool)isCacheable;
 -(bool) AuthenticationRequired;
 
 -(NSString *_Null_unspecified)id;

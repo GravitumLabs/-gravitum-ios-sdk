@@ -14,8 +14,7 @@
 
 -(NSMutableDictionary<NSString *, NSObject *> *)GenerateData;
 
--(bool) AuthenticationRequired;
 
--(NSString *) GetJsonData;
+//-(NSString *) GetJsonData;
 
 @end

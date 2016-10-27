@@ -1,7 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "Analytics.h"
 #import "SessionManager.h"
-//@import UIKit;
+#import "PushEvent.h"
+#import "SetPushToken.h"
+
 
 @interface Analytics()
 {}
@@ -19,15 +21,16 @@
     {
         theSingleton = [[Analytics alloc] init];
     }
-    [theSingleton SetDevicePushToken:[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
+	
     return theSingleton;}
 
 -(id)init{
-    _deviceGcmId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+	if(_devicePushToken == nil)
+		_devicePushToken= @"";
     _userId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     _gender = Unknown;
     CacheArray = [[NSMutableArray alloc] init];
-    
+	useNotifications = NO;
     return self;
 }
 
@@ -41,6 +44,7 @@
 }
 
 -(void)Init{
+	
     AuthRequest *request = nil;
     request = [[AuthRequest alloc] initWithString];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -70,7 +74,7 @@
     
 }
 -(NSString *)getUserServerId{return _userServerId;}
--(NSString *)getDeviceGcmId{return _deviceGcmId;}
+-(NSString *)getDevicePushToken{return _devicePushToken;}
 -(bool *)isInited{return &(_isInited);}
 
 //PUBLIC METHODS
@@ -85,12 +89,15 @@
     comps.timeZone = [NSTimeZone defaultTimeZone];
     
     NSDate * date = [calendar dateFromComponents:comps];
-    
-    
-    
-    _birthday = date;}
+    _birthday = date;
+}
+
 -(void)SetUserId:(NSString* )newUserId{_userId = newUserId;}
--(void)SetDevicePushToken: (NSString*) gcmId{_deviceGcmId = gcmId;}
+-(void)useNotifications:(bool)use{
+	useNotifications = use;
+	if(_isInited)
+		[Analytics RegisterNotifications];
+}
 -(void)SetGender:(Gender *) newGender{_gender = newGender;}
 -(void)SetUserName: (NSString *)newUserName{_userName = newUserName;}
 -(void)SetFacebookId:(NSString *)newFacebookId{_facebookId = newFacebookId;}
@@ -98,7 +105,50 @@
     _birthday = newBirthday;
 }
 
+-(void)SetDevicePushToken: (NSString*) token{
+	if([_devicePushToken  isEqual: @""] || ![_devicePushToken isEqualToString:token]){
+		_devicePushToken = token;
+		SetPushToken * NewTokenRequest = [[SetPushToken alloc] initWithString:_devicePushToken];
+		[NewTokenRequest Send];
+	}
+	
+}
+-(void)SetDevicePushTokenData: (NSData*) token{
+	const unsigned *tokenBytes = [token bytes];
+	NSString *hexToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x",
+						  ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),
+						  ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
+						  ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+	
+	[self SetDevicePushToken:hexToken];
+}
+-(void)PushEvent: (int )Id type:(int)type{
+	PushEvent * request = [[PushEvent alloc] initWithString:Id type:type];
+	[request Send];
+}
+
+-(void)OpenedFromPush :(NSDictionary *)data{
+	NSLog(@"opened from a push notification when the app was on background");
+	int push_id = (int)[[[data objectForKey:@"aps"] objectForKey:@"push_id"] integerValue];
+	[[Analytics getAnalytics] PushEvent:push_id type:1];
+}
+
++(void)RegisterNotifications{
+	NSLog(@"Registering for notifications at Apple Server");
+	
+	//Register the supported interaction types
+	UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeNone;
+	UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types
+																			   categories:nil];
+	//Rigister for remote notifications
+	
+	[[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+	[[UIApplication sharedApplication] registerForRemoteNotifications];
+	
+}
+
 -(void)SessionStart{
+    //NSLog(@"SessionStartRequest");
     if(_isInited && [[SessionManager getManager] isSessionUndefined]){
         SessionStartRequest * sessionStartRequest = [[SessionStartRequest alloc] init];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -109,30 +159,6 @@
         
         [sessionStartRequest Send];
     }
-    
-    /*if (_isInited && SessionManager.GetSessionId().equals(SessionManager.SESSION_UNDEFINED)) {
-     StartSessionRequest startSession = new StartSessionRequest();
-     startSession.setResultCallback(new RequestCallback() {
-     @Override
-     public void OnSuccess(JSONObject data) {
-     try {
-     SessionManager.SetSessionId(data.getString("session"));
-     WebServer.GetInstance().loadCachedRequests();
-     WebServer.GetInstance().sendCachedRequests();
-     } catch (JSONException e) {
-     Log.d(InternalData.TAG, "Parse Session ID error: " + e.getMessage());
-     e.printStackTrace();
-     }
-     }
-     
-     @Override
-     public void OnFail(int code, String message) {
-     Log.d(InternalData.TAG, "Session Start Fail| Code:" + Integer.toString(code) + " Message:" + message);
-     }
-     });
-     startSession.send();
-     }*/
-    
 }
 
 
@@ -151,30 +177,11 @@
         [sessionStopRequest Send];
         
     }
-    /*WebServer.GetInstance().flushCachedRequests();
-    
-    if (_isInited && !SessionManager.GetSessionId().equals(SessionManager.SESSION_UNDEFINED)) {
-        StopSessionRequest stopSession = new StopSessionRequest();
-        stopSession.setResultCallback(new RequestCallback() {
-            @Override
-            public void OnSuccess(JSONObject data) {
-                SessionManager.SetSessionId(SessionManager.SESSION_UNDEFINED);
-                Log.d(InternalData.TAG, "Session End Success");
-            }
-            
-            @Override
-            public void OnFail(int code, String message) {
-                SessionManager.SetSessionId(SessionManager.SESSION_UNDEFINED);
-                Log.d(InternalData.TAG, "Session End Fail| Code:" + Integer.toString(code) + " Message:" + message);
-            }
-        });
-        stopSession.send();
-    }*/
 }
 
 -(void)OnSessionStopCompletedHandler: (NSNotification*)notification{
     
-    NSLog(@"Session has succesfully stoped");
+    NSLog(@"Session has succesfully stopped");
     [[SessionManager getManager] setSessionId:UndefinedSession];
 }
 
@@ -190,31 +197,9 @@
 }
 
 -(void)SendMonetaryEvent :(NSString*)productId price:(double)_price currency:(NSString * )currency{
-//    if([[SessionManager getManager] isSessionUndefined] || [[WebServer getWebServer] isOflineMode]){
-//        NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-//        [dict setObject:@"Monetary" forKey:@"EventType"];
-//        [dict setObject:productId forKey:@"EventProductId"];
-//        [dict setObject:[NSNumber numberWithDouble:_price] forKey:@"EventPrice"];
-//        [dict setObject:currency forKey:@"currency"];
-//        
-//        [CacheArray addObject:dict];
-//    }
-    
     MonetaryEventRequest * request = [[MonetaryEventRequest alloc] initWithString:productId price:_price currency:currency];
     [request Send];
 }
-
--(void)OnGcmIdRequestCompletedHandler{
-    
-    AuthRequest * request = [[AuthRequest alloc] initWithString];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(OnAuthRequestCompletedHandler:)
-                                        
-                                                 name:@"RequestCompleted"
-                                               object:request];
-    [request Send];
-    
-    }
 
 -(void)OnAuthRequestCompletedHandler: (NSNotification*)notification {
     if([[Settings getSettings] DebugLogs])
@@ -224,25 +209,29 @@
     RequestStatus requestStatus = [[dict valueForKey:@"RequestStatus"] intValue];
     if(requestStatus == Completed){
         if([[Settings getSettings] DebugLogs])
-        NSLog(@"OnAuthRequestCompletedHandler. RequestStatus == Completed");
+            NSLog(@"OnAuthRequestCompletedHandler. RequestStatus == Completed");
         ServerResponse * serverResponse = [dict valueForKey:@"ServerResponse"];
         if(serverResponse != nil){
             if([[Settings getSettings] DebugLogs])
-            NSLog(@"OnAuthRequestCompletedHandler. serverResponse != nil");
+                NSLog(@"OnAuthRequestCompletedHandler. serverResponse != nil");
             if([serverResponse Error] == nil)
             {
                 if([[Settings getSettings] DebugLogs])
-                NSLog(@"OnAuthRequestCompletedHandler. serverResponse Error == nil");
+                    NSLog(@"OnAuthRequestCompletedHandler. serverResponse Error == nil");
              
                 _isInited = true;
                 NSDictionary<NSString *, NSObject * > * ddd =[serverResponse getData];
                 
                 _userServerId = (NSString*)[ddd valueForKey:@"user"];
-                if([[Settings getSettings] DebugLogs])
-                NSLog(@"userServerId from after Auth \n%@", _userServerId);
+				if(useNotifications)
+					[Analytics RegisterNotifications];
+				
+
+				
                 SessionStartRequest *sessionStart = [[SessionStartRequest alloc] init];
                 if([[Settings getSettings] DebugLogs])
-                NSLog(@"Init succesfull, starting session");
+                    NSLog(@"userServerId from after Auth \n%@ \n Init succesfull, starting session", _userServerId);
+
                 [[NSNotificationCenter defaultCenter] addObserver:self
                                                          selector:@selector(OnSessionStartRequestCompleted:)
                                                              name:@"RequestCompleted"
@@ -261,7 +250,7 @@
 
 -(void)OnSessionStartRequestCompleted :(NSNotification*)notification{
     if([[Settings getSettings] DebugLogs])
-    NSLog(@"ONSessionStartRequestCompleted");
+        NSLog(@"ONSessionStartRequestCompleted");
     NSDictionary * dict = [notification userInfo];
     RequestStatus requestStatus = [[dict valueForKey:@"RequestStatus"] intValue];
     if(requestStatus == Completed){
@@ -271,7 +260,7 @@
             SessionManager * sm = [SessionManager getManager];
             [sm setSessionId:(NSString*)[[serverResponse getData] valueForKey:@"session"]];
             if([[Settings getSettings] DebugLogs])
-            NSLog(@"OnSessionStartRequestCompleted. ServerError == nil");
+                NSLog(@"OnSessionStartRequestCompleted. ServerError == nil");
             [[WebServer getWebServer] LoadCachedRequests];
             [[WebServer getWebServer] SendDelayedPackages];
             

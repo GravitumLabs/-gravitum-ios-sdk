@@ -10,6 +10,8 @@ NSString *const MonPackId = @"AddPurchase";
     _productId = productID;
     _price = price;
     _currency = currency;
+    _cacheable = YES;
+	_authRequired = YES;
     return self;
 }
 
@@ -46,9 +48,7 @@ NSString *const MonPackId = @"AddPurchase";
     return OriginalJSON;
 }
 
--(bool) AuthenticationRequired{
-    return YES;
-}
+
 
 -(NSString *) GetJsonData{
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];

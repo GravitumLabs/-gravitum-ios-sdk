@@ -24,6 +24,8 @@
 		CEB1908C1D9A7093001795A7 /* WebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190781D9A7093001795A7 /* WebServer.m */; };
 		CEB1908F1D9A70B6001795A7 /* Analytics.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190531D9A7093001795A7 /* Analytics.h */; };
 		CEF679C21DAD295B00A16D79 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF679C11DAD295B00A16D79 /* Reachability.m */; };
+		CEF67A801DB7BCA400A16D79 /* PushEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF67A7D1DB7BCA400A16D79 /* PushEvent.m */; };
+		CEF67A811DB7BCA400A16D79 /* SetPushToken.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF67A7F1DB7BCA400A16D79 /* SetPushToken.m */; };
 		CEF7F3F71D9A77ED00646EE9 /* AddEventRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190511D9A7093001795A7 /* AddEventRequest.h */; };
 		CEF7F3F81D9A77ED00646EE9 /* AuthRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB190591D9A7093001795A7 /* AuthRequest.h */; };
 		CEF7F3F91D9A77ED00646EE9 /* BaseRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEB1905B1D9A7093001795A7 /* BaseRequest.h */; };
@@ -104,6 +106,10 @@
 		CEB190781D9A7093001795A7 /* WebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServer.m; sourceTree = "<group>"; };
 		CEF679C01DAD295B00A16D79 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CEF679C11DAD295B00A16D79 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CEF67A7C1DB7BCA400A16D79 /* PushEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushEvent.h; sourceTree = "<group>"; };
+		CEF67A7D1DB7BCA400A16D79 /* PushEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushEvent.m; sourceTree = "<group>"; };
+		CEF67A7E1DB7BCA400A16D79 /* SetPushToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPushToken.h; sourceTree = "<group>"; };
+		CEF67A7F1DB7BCA400A16D79 /* SetPushToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPushToken.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +142,10 @@
 		CEB190411D9A6A95001795A7 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
+				CEF67A7C1DB7BCA400A16D79 /* PushEvent.h */,
+				CEF67A7D1DB7BCA400A16D79 /* PushEvent.m */,
+				CEF67A7E1DB7BCA400A16D79 /* SetPushToken.h */,
+				CEF67A7F1DB7BCA400A16D79 /* SetPushToken.m */,
 				CEF679C01DAD295B00A16D79 /* Reachability.h */,
 				CEF679C11DAD295B00A16D79 /* Reachability.m */,
 				CEB190511D9A7093001795A7 /* AddEventRequest.h */,
@@ -236,9 +246,11 @@
 			files = (
 				CEB1907F1D9A7093001795A7 /* Enums.m in Sources */,
 				CEB190881D9A7093001795A7 /* SessionStopRequest.m in Sources */,
+				CEF67A811DB7BCA400A16D79 /* SetPushToken.m in Sources */,
 				CEB1908C1D9A7093001795A7 /* WebServer.m in Sources */,
 				CEB190841D9A7093001795A7 /* ServerRequest.m in Sources */,
 				CEB1907A1D9A7093001795A7 /* Analytics.m in Sources */,
+				CEF67A801DB7BCA400A16D79 /* PushEvent.m in Sources */,
 				CEB190831D9A7093001795A7 /* RequestResult.m in Sources */,
 				CEB190821D9A7093001795A7 /* MonetaryEventRequest.m in Sources */,
 				CEB190851D9A7093001795A7 /* ServerResponse.m in Sources */,

@@ -1,5 +1,6 @@
 #import "AuthRequest.h"
 #import "Analytics.h"
+#import <sys/utsname.h>
 
 @implementation AuthRequest
 
@@ -7,7 +8,10 @@ NSString *const AuthPackId = @"Auth";
 
 
 -(id)initWithString{
-    return [super initWithString:AuthPackId];
+	self = [super initWithString:AuthPackId];
+	_authRequired = NO;
+	_cacheable = NO;
+    return self;
 }
 
 -(void)Send{
@@ -16,8 +20,10 @@ NSString *const AuthPackId = @"Auth";
 }
 
 -(NSMutableDictionary<NSString *, NSObject *> *)GenerateData{
-    if([[Settings getSettings] DebugLogs])
+    if([[Settings getSettings] DebugLogs]){
         NSLog(@"Generating data in AuthRequest");
+    }
+    
     NSMutableDictionary<NSString*, NSObject *> * OriginalJSON = [[NSMutableDictionary<NSString*, NSObject *> alloc] init];
     
     Analytics *analytics = [Analytics getAnalytics];
@@ -45,24 +51,36 @@ NSString *const AuthPackId = @"Auth";
     [OriginalJSON setValue: [analytics getUserName]  forKey:@"user_name"];
     [OriginalJSON setValue: [analytics getFacebookId]  forKey:@"user_facebook_id"];
     [OriginalJSON setValue: [[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"device_id"];
-    [OriginalJSON setValue: [analytics getDeviceGcmId] forKey:@"device_push_token"];
+    [OriginalJSON setValue: [analytics getDevicePushToken] forKey:@"device_push_token"];
     [OriginalJSON setValue: [NSString stringWithFormat:@"%f", [[UIScreen mainScreen] bounds].size.height] forKey:@"device_height"];
     [OriginalJSON setValue: [NSString stringWithFormat:@"%f", [[UIScreen mainScreen] bounds].size.width] forKey:@"device_width"];
     [OriginalJSON setValue: [NSNumber numberWithInt:1] forKey:@"device_os"];
     [OriginalJSON setValue: [[UIDevice currentDevice] systemVersion] forKey:@"device_os_version"];
-    [OriginalJSON setValue: [[UIDevice currentDevice] model] forKey:@"device_model"];
+	struct utsname systemInfo;
+	uname(&systemInfo);
+	NSString * device_model = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+	
+    [OriginalJSON setValue: device_model forKey:@"device_model"];
     [OriginalJSON setValue: @"" forKey:@"device_manufacturer"];
-    [OriginalJSON setValue: [[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"device_language"];
+	
+	
+	NSString * devLang = [[NSLocale preferredLanguages] firstObject];
+	if([devLang containsString:@"-"]){
+		NSRange range = [devLang rangeOfString:@"-"];
+		devLang = [devLang substringToIndex:range.location];
+	}
+
+	[OriginalJSON setValue: devLang forKey:@"device_language"];
     [OriginalJSON setValue:[NSNumber numberWithInt:(int)[[NSTimeZone  localTimeZone] secondsFromGMT]] forKey:@"device_timezone"];
-    
+	
+	NSLocale * locale = [NSLocale currentLocale];
+	[OriginalJSON setValue:[locale objectForKey:NSLocaleCountryCode] forKey:@"device_country_code"];
     
 
     return OriginalJSON;
 }
 
 
--(bool) AuthenticationRequired{
-    return false;
-}
+
 
 @end

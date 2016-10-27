@@ -12,7 +12,7 @@ FOUNDATION_EXPORT NSString *const PackId;
 
 -(NSMutableDictionary<NSString *, NSObject *> *)GenerateData;
 
--(bool) AuthenticationRequired;
+
 
 -(void)Send;
 

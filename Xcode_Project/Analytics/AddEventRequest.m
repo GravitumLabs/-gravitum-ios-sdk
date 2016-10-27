@@ -16,6 +16,8 @@ NSString *const AddEventPackId = @"AddEvent";
     _eventData = [[NSDictionary<NSString*,NSObject*> alloc] init];
         NSMutableDictionary<NSString*,NSObject*>* eventData = [[NSMutableDictionary<NSString*,NSObject*> alloc] init];
     _eventData = eventData;
+    _cacheable = YES;
+	_authRequired = YES;
     return self;
 }
 
@@ -51,61 +53,29 @@ NSString *const AddEventPackId = @"AddEvent";
     return OriginalJSON;
 }
 
-//{"method":"AddEvent",
-//    "fields":
-//            {
-//            "session":"57e93fb9b34b993ae3688d03",
-//            "user":"57e93fb3b34b993ae3688d01",
-//            "data":
-//                {
-//                    "custom_int_data":10101,
-//                    "custom_string_data":"string_data"
-//                }
-//            }
-//}
 
-
-//Good
-//{"method":"AddEvent",
-//    "fields":
-//        {"data":
-//            {
-//            "custom_int_data":10101,
-//            "custom_string_data":"string_data"
-//            },
-//        "session":"57e93fb9b34b993ae3688d03",
-//        "event":"sample_event",
-//        "user":"57e93fb3b34b993ae3688d01"
+//-(NSString *) GetJsonData{
+//    NSMutableDictionary<NSString * , NSObject *> * dict = [[NSMutableDictionary<NSString * , NSObject *> alloc] init];
+//    
+//    
+//    [dict setValue:request_Id forKey:@"requestId"];
+//    //[dict setValue:AddEventPackId forKey:@"requestId"];
+//    [dict setValue:_eventId forKey:@"eventId"];
+//    [dict setValue:_eventData  forKey:@"eventDDData"];
+//
+//    NSString * stringData;
+//    NSError *erroR;
+//    NSData * jsondata = [NSJSONSerialization dataWithJSONObject:dict
+//                                                        options:0
+//                                                          error: &erroR];
+//    if(!jsondata){
+//        NSLog(@"NSdictionary to json convert error: %@", erroR.localizedDescription);
+//        
+//    }else{
+//        stringData = [[NSString alloc] initWithData:jsondata encoding:NSUTF8StringEncoding];
 //    }
+//    return stringData;
 //}
-
-
--(bool) AuthenticationRequired{
-    return YES;
-}
-
--(NSString *) GetJsonData{
-    NSMutableDictionary<NSString * , NSObject *> * dict = [[NSMutableDictionary<NSString * , NSObject *> alloc] init];
-    
-    
-    [dict setValue:request_Id forKey:@"requestId"];
-    //[dict setValue:AddEventPackId forKey:@"requestId"];
-    [dict setValue:_eventId forKey:@"eventId"];
-    [dict setValue:_eventData  forKey:@"eventDDData"];
-
-    NSString * stringData;
-    NSError *erroR;
-    NSData * jsondata = [NSJSONSerialization dataWithJSONObject:dict
-                                                        options:0
-                                                          error: &erroR];
-    if(!jsondata){
-        NSLog(@"NSdictionary to json convert error: %@", erroR.localizedDescription);
-        
-    }else{
-        stringData = [[NSString alloc] initWithData:jsondata encoding:NSUTF8StringEncoding];
-    }
-    return stringData;
-}
 
 
 @end

@@ -20,12 +20,13 @@ typedef enum Gender : NSInteger {
     NSString * _userId;
     NSString * _userName;
     NSString * _userServerId;
-    NSString * _deviceGcmId;
+    NSString * _devicePushToken;
     NSString * _facebookId;
     NSDate * _birthday;
     Gender * _gender;
     bool  _isInited;
     NSMutableArray * CacheArray;
+	bool useNotifications;
 }
 
 -(NSString * _Null_unspecified)getUserId;
@@ -34,14 +35,19 @@ typedef enum Gender : NSInteger {
 -(NSString *_Null_unspecified)getUserName;
 -(NSString *_Null_unspecified)getFacebookId;
 -(NSString *_Null_unspecified)getUserServerId;
--(NSString *_Null_unspecified)getDeviceGcmId;
+-(NSString *_Null_unspecified)getDevicePushToken;
 -(bool *_Null_unspecified)isInited;
 
 -(void)Init;
 -(id _Nonnull)initWithParameters :(NSString*_Nonnull)AppToken AppSecret:(NSString*_Nonnull)AppSecret SenderId:(NSString * _Nullable)SenderId;
 -(void)SetBirthday:(int)dayBorn monthBorn:(int)monthBorn yearBorn:(int)yearBorn;
 -(void)SetUserId:(NSString* _Null_unspecified)newUserId;
--(void)SetDevicePushToken: (NSString*_Null_unspecified) gcmId;
+
+-(void)useNotifications :(bool )use;
+-(void)SetDevicePushToken: (NSString* _Nonnull) token;
+-(void)SetDevicePushTokenData: (NSData* _Nonnull) token;
+-(void)OpenedFromPush :(NSDictionary * _Nonnull)data;
+
 -(void)SetGender:(Gender *_Null_unspecified) newGender;
 -(void)SetUserName: (NSString *_Null_unspecified)newUserName;
 -(void)SetFacebookId:(NSString *_Null_unspecified)newFacebookId;
@@ -53,6 +59,7 @@ typedef enum Gender : NSInteger {
 -(void)SessionEnd;
 
 +(Analytics * _Nonnull) getAnalytics;
++(void)RegisterNotifications;
 @end
 
 

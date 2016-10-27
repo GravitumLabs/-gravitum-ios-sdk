@@ -4,6 +4,7 @@
 #import "AddEventRequest.h"
 #import "MonetaryEventRequest.h"
 #import "Reachability.h"
+#import "SessionManager.h"
 
 @interface WebServer(){
     Reachability *internetReachableFoo;
@@ -18,7 +19,8 @@ NSString *const LOCAL_CACHE_KEY = @"GRAVITUM_LOCAL_CACHE_KEY";
 
 NSString * const WEBSERVER_LOG_HEADER_ = @"WebServer Log: ";
 NSString * const WEBSERVER_VERSION = @"1.0";
-NSString * const SERVER_URL = @"https://api.gravitum.com/init";
+//NSString * const SERVER_URL = @"https://api.gravitum.com/init";
+NSString * const SERVER_URL = @"https://apiv2.gravitum.com/init";
 NSString * const WEBSERVER_ERROR_HEADER = @"WebServer Error: ";
 int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
 
@@ -47,12 +49,29 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
 -(void)FlushCachedRequests{
     NSLog(@"FlushCachedRequests");
     NSMutableArray * Array = [[NSMutableArray alloc] init];
-
-    for(BaseRequest *object in DelayedPackages){
+    if([[NSUserDefaults standardUserDefaults] objectForKey:LOCAL_CACHE_KEY] != nil){
         
-        [Array addObject:[object GetJsonData]];
+        Array = [[NSUserDefaults standardUserDefaults] objectForKey:LOCAL_CACHE_KEY];
+        if(Array == nil){
+            Array = [[NSMutableArray alloc] init];
+            for(BaseRequest *object in DelayedPackages)
+            {
+                [Array addObject:[object GetJsonData]];
+            }
+        }else{
+            for(BaseRequest *object in DelayedPackages)
+            {
+                [Array addObject:[object GetJsonData]];
+            }
+        }
         
+    }else{
+        
+        for(BaseRequest *object in DelayedPackages){
+            [Array addObject:[object GetJsonData]];
+        }
     }
+    
     if([[Settings getSettings] DebugLogs])
         NSLog(@"Cached list:\n %@",Array);
     NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
@@ -72,7 +91,8 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
                                                                              options:0
                                                                                error:&erroR];
             NSString  *requestId = [jsondata objectForKey:@"requestId"];
-            //NSLog(@"%@",requestId);
+            NSLog(@"Resending loaded Request: %@",requestId);
+            
             if([requestId  isEqual: @"AddPurchase"])
             {
                 NSString * productId = [jsondata objectForKey:@"productId"];
@@ -90,7 +110,7 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
                 NSMutableDictionary * eData = [jsondata objectForKey:@"eventDDData"];
                 AddEventRequest * request = [[[AddEventRequest alloc] init ]initWithString:newId eventData:eData];
                 //NSLog(@"NEW EVENT %@", eData);
-            [request Send];
+                [request Send];
                
             }
         }
@@ -100,52 +120,47 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
     //NSLog(@"LoadCachedRequests: %@", DelayedPackages);
 }
 
-- (void)testInternetConnection
-{
-    internetReachableFoo = [Reachability reachabilityWithHostname:@"www.google.com"];
-    
-    // Internet is reachable
-    internetReachableFoo.reachableBlock = ^(Reachability*reach)
-    {
-        // Update the UI on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"There is internet connection, but can't reach server");
-            //_isOfflineMode = NO;
-        });
-    };
-    
-    // Internet is not reachable
-    internetReachableFoo.unreachableBlock = ^(Reachability*reach)
-    {
-        // Update the UI on the main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"No internet connection!");
-            //_isOfflineMode = YES;
-            
-        });
-    };
-    
-    [internetReachableFoo startNotifier];
-}
+//- (void)testInternetConnection
+//{
+//    internetReachableFoo = [Reachability reachabilityWithHostname:@"www.google.com"];
+//    
+//    // Internet is reachable
+//    internetReachableFoo.reachableBlock = ^(Reachability*reach)
+//    {
+//        // Update the UI on the main thread
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSLog(@"There is internet connection, but can't reach server");
+//            //_isOfflineMode = NO;
+//        });
+//    };
+//    
+//    // Internet is not reachable
+//    internetReachableFoo.unreachableBlock = ^(Reachability*reach)
+//    {
+//        // Update the UI on the main thread
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSLog(@"No internet connection!");
+//            //_isOfflineMode = YES;
+//            
+//        });
+//    };
+//    
+//    [internetReachableFoo startNotifier];
+//}
 
 - (void)testInternetConnection :(BaseRequest *) package
 {
-    internetReachableFoo = [Reachability reachabilityWithHostname:@"www.google.com"];
-    
+    Reachability * reachableFoo = [Reachability reachabilityWithHostName:@"www.google.com"];
+    internetReachableFoo = reachableFoo;
+
     // Internet is reachable
     internetReachableFoo.reachableBlock = ^(Reachability*reach)
     {
+        
+            _isOfflineMode = NO;
+
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            _isOfflineMode = NO;
-            if([SessionManager getManager].isSessionUndefined && [package AuthenticationRequired]){
-                [DelayedPackages addObject:package];
-                NSLog(@"%@ Cached... (UndefinedSession) DelayedPackages: %@", [package id], DelayedPackages.description);
-            }else {
-                [self SendRequest:package];
-                
-            }
-                
             
         });
     };
@@ -153,18 +168,41 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
     // Internet is not reachable
     internetReachableFoo.unreachableBlock = ^(Reachability*reach)
     {
+        if(_isOfflineMode == NO){
+            _isOfflineMode = YES;
+            NSLog(@"No server connection! Set to offline mode");
+        }
+
         // Update the UI on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"No server connection! Set offline mode");
-            _isOfflineMode = YES;
-            if([package AuthenticationRequired]){
-                [DelayedPackages addObject:package];
-                NSLog(@"%@ Cached... (Can't reach server) DelayedPackages: %@", [package id],DelayedPackages.description);
-             //   [self testInternetConnection];
-            }
-            
+ 
         });
     };
+    if(!_isOfflineMode){
+        if([SessionManager getManager].isSessionUndefined && [package AuthenticationRequired] && [package isCacheable]){
+            if(![DelayedPackages containsObject:package]){
+                [DelayedPackages addObject:package];
+                NSLog(@"%@ Cached... (UndefinedSession) DelayedPackages: %@", [package id], DelayedPackages.description);
+            }
+        }else {
+            
+            if([DelayedPackages containsObject:package]){
+                [self SendRequest:package];
+                [DelayedPackages removeObject:package];
+            }else{
+                //NSLog(@"Is cacheable = %@", [package isCacheable]);
+                [self SendRequest:package];
+            }
+        }
+    }else{
+        if([package AuthenticationRequired] ){
+            if(![DelayedPackages containsObject:package]){
+                [DelayedPackages addObject:package];
+                NSLog(@"%@ Cached... (Can't reach server) DelayedPackages: %@", [package id],DelayedPackages.description);
+            }
+        }
+    }
+    
     
     [internetReachableFoo startNotifier];
 }
@@ -202,11 +240,19 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
 }
 
 -(void)SendDelayedPackages{
-    NSLog(@"WebServer. SendingDelayedPackages");
-    for(id object in DelayedPackages){
-        NSLog(@"Sending request with object %@", object);
-        [self SendRequest:object];
+    if([DelayedPackages count]> 0){
+        NSLog(@"WebServer. SendingDelayedPackages");
+        for(id object in DelayedPackages){
+            NSLog(@"Sending request with object %@", object);
+            [self SendRequest:object];
+            // [DelayedPackages removeObject:object];
+        }
+        [DelayedPackages removeAllObjects];
+    }else{
+        NSLog(@"WebServer. There is no DelayedPackages");
     }
+    
+    
 }
 
 
@@ -274,9 +320,10 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
             
         }
     }else{
-        if([[result getBaseRequest] AuthenticationRequired]){
-            [DelayedPackages addObject:[result getBaseRequest]];
-        }
+//        if([[result getBaseRequest] AuthenticationRequired]){
+//            [DelayedPackages addObject:[result getBaseRequest]];
+//            NSLog(@"%@ Cached... (Error! : Request status != Completed) DelayedPackages: %@", [[result getBaseRequest] id], DelayedPackages.description);
+//        }
         NSString *resultString = nil;
         if(result != nil){
             RequestStatus s = (RequestStatus)(result.getRequestStatus);

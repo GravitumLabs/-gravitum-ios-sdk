@@ -14,8 +14,10 @@
 -(id)initWithString:(NSString *)_id
 {
     request_Id = _id;
+    _cacheable = NO;
     WebServer * ws = [WebServer getWebServer];
     _TimeStamp = [ws CurrentTimeStamp];
+	_authRequired = YES;
     return self;
 }
 
@@ -57,8 +59,10 @@
     [ws Send:self];
 }
 
+-(bool)isCacheable{return _cacheable;}
+
 -(bool) AuthenticationRequired{
-    return true;
+    return _authRequired;
 }
 
 -(NSString*)id{
