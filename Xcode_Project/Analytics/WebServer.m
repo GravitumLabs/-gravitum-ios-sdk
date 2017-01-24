@@ -316,14 +316,11 @@ int const WEBSERVER_ALLOWED_REQUEST_TIME_RANGE = 900000;
         } @catch (NSException *exception) {
             NSLog(@"Server response parsing failed %@", exception.description);
             [[result getBaseRequest] DispatchCompletedRequest:[result getRequestStatus] serverResponse:nil];
-        } @finally {
-            
-        }
+		} @finally {
+			
+		}
     }else{
-//        if([[result getBaseRequest] AuthenticationRequired]){
-//            [DelayedPackages addObject:[result getBaseRequest]];
-//            NSLog(@"%@ Cached... (Error! : Request status != Completed) DelayedPackages: %@", [[result getBaseRequest] id], DelayedPackages.description);
-//        }
+
         NSString *resultString = nil;
         if(result != nil){
             RequestStatus s = (RequestStatus)(result.getRequestStatus);

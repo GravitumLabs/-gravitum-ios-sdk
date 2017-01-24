@@ -127,6 +127,12 @@
 	[request Send];
 }
 
+
+-(void)SetCustomProperties:(NSDictionary<NSString *, NSObject *> *)data{
+		SetPropertiesRequest * request = [[SetPropertiesRequest alloc] initWithProperties:data];
+		[request Send];
+}
+
 -(void)OpenedFromPush :(NSDictionary *)data{
 	NSLog(@"opened from a push notification when the app was on background");
 	int push_id = (int)[[[data objectForKey:@"aps"] objectForKey:@"push_id"] integerValue];

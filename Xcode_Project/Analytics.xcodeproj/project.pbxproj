@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE95BF201E0C199A00EF37FF /* SetPropertiesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE95BF1F1E0C199A00EF37FF /* SetPropertiesRequest.m */; };
+		CE95BF2D1E0C21BC00EF37FF /* SetPropertiesRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CE95BF1E1E0C199A00EF37FF /* SetPropertiesRequest.h */; };
 		CEB190791D9A7093001795A7 /* AddEventRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190521D9A7093001795A7 /* AddEventRequest.m */; };
 		CEB1907A1D9A7093001795A7 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB190541D9A7093001795A7 /* Analytics.m */; };
 		CEB1907D1D9A7093001795A7 /* AuthRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB1905A1D9A7093001795A7 /* AuthRequest.m */; };
@@ -64,12 +66,15 @@
 				CEF7F4031D9A77ED00646EE9 /* Settings.h in CopyFiles */,
 				CEF7F4051D9A77ED00646EE9 /* WebServer.h in CopyFiles */,
 				CEB1908F1D9A70B6001795A7 /* Analytics.h in CopyFiles */,
+				CE95BF2D1E0C21BC00EF37FF /* SetPropertiesRequest.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE95BF1E1E0C199A00EF37FF /* SetPropertiesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPropertiesRequest.h; sourceTree = "<group>"; };
+		CE95BF1F1E0C199A00EF37FF /* SetPropertiesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPropertiesRequest.m; sourceTree = "<group>"; };
 		CEB1903F1D9A6A95001795A7 /* libAnalytics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAnalytics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB190511D9A7093001795A7 /* AddEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventRequest.h; sourceTree = "<group>"; };
 		CEB190521D9A7093001795A7 /* AddEventRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventRequest.m; sourceTree = "<group>"; };
@@ -142,6 +147,8 @@
 		CEB190411D9A6A95001795A7 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
+				CE95BF1E1E0C199A00EF37FF /* SetPropertiesRequest.h */,
+				CE95BF1F1E0C199A00EF37FF /* SetPropertiesRequest.m */,
 				CEF67A7C1DB7BCA400A16D79 /* PushEvent.h */,
 				CEF67A7D1DB7BCA400A16D79 /* PushEvent.m */,
 				CEF67A7E1DB7BCA400A16D79 /* SetPushToken.h */,
@@ -214,7 +221,7 @@
 				KnownAssetTags = (
 					New,
 				);
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Gravitum;
 				TargetAttributes = {
 					CEB1903E1D9A6A95001795A7 = {
@@ -257,6 +264,7 @@
 				CEB190791D9A7093001795A7 /* AddEventRequest.m in Sources */,
 				CEB190801D9A7093001795A7 /* Error.m in Sources */,
 				CEF679C21DAD295B00A16D79 /* Reachability.m in Sources */,
+				CE95BF201E0C199A00EF37FF /* SetPropertiesRequest.m in Sources */,
 				CEB190891D9A7093001795A7 /* Settings.m in Sources */,
 				CEB1907E1D9A7093001795A7 /* BaseRequest.m in Sources */,
 				CEB190871D9A7093001795A7 /* SessionStartRequest.m in Sources */,
@@ -282,8 +290,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -326,8 +336,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -353,6 +365,13 @@
 		CEB190491D9A6A95001795A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+					armv7s,
+					arm64,
+					armv7,
+				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -362,6 +381,12 @@
 		CEB1904A1D9A6A95001795A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
+					armv7s,
+					arm64,
+					armv7,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

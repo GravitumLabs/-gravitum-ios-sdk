@@ -7,6 +7,7 @@
 #import "SessionStartRequest.h"
 #import "WebServer.h"
 #import "SessionStopRequest.h"
+#import "SetPropertiesRequest.h"
 
 typedef enum Gender : NSInteger {
     Unknown = 0,
@@ -46,6 +47,7 @@ typedef enum Gender : NSInteger {
 -(void)useNotifications :(bool )use;
 -(void)SetDevicePushToken: (NSString* _Nonnull) token;
 -(void)SetDevicePushTokenData: (NSData* _Nonnull) token;
+-(void)SetCustomProperties:(NSDictionary<NSString *, NSObject *> * _Nonnull) data;
 -(void)OpenedFromPush :(NSDictionary * _Nonnull)data;
 
 -(void)SetGender:(Gender *_Null_unspecified) newGender;
