@@ -19,6 +19,7 @@
 	_id = _Id;
 	_type = type;
 	_cacheable = YES;
+	_authRequired = TRUE;
 	return self;
 }
 
@@ -30,7 +31,7 @@
 	
 	[OriginalJSON setValue: [NSNumber numberWithInt:_id] forKey:@"push_id"];
 	[OriginalJSON setValue: [NSNumber numberWithInt:_type] forKey:@"event"];
-	if([[Analytics getAnalytics] getUserServerId] != nil || ![[[Analytics getAnalytics] getUserServerId] isEqualToString:@""]){
+	if([[Analytics getAnalytics] getUserServerId] != nil){
 		[OriginalJSON setObject:[[Analytics getAnalytics] getUserServerId] forKey:@"user"];
 	}
 	
@@ -42,8 +43,8 @@
 	return OriginalJSON;
 }
 
--(bool) AuthenticationRequired{
-	return false;
-}
+//-(bool) AuthenticationRequired{
+//	return true;
+//}
 
 @end

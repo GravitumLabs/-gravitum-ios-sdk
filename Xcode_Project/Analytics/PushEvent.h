@@ -15,5 +15,5 @@
 }
 -(id)initWithString:(int )_Id type:(int )type;
 -(NSMutableDictionary<NSString *, NSObject *> *)GenerateData;
--(bool) AuthenticationRequired;
+//-(bool) AuthenticationRequired;
 @end
